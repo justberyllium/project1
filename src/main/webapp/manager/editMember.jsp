@@ -1,5 +1,5 @@
-<%@page import="AdminMember.UserVO"%>
-<%@page import="AdminMember.AdminMemberManageDAO"%>
+<%@page import="kr.co.sist.user.UserVO"%>
+<%@page import="kr.co.sist.user.AdminMemberManageDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" info=""%>
 <%
@@ -47,25 +47,59 @@ request.setCharacterEncoding("UTF-8");
 	$(function() {
 
 		$("#update").click(function() {
-			if (confirm("수정하시겠습니까?")) {
-				alert("정상적으로 수정되었습니다.");
-				window.location.href = "memberList.jsp";
-			}
+	        if (confirm("수정하시겠습니까?")) {
+	            // 수정 Ajax 요청
+	            $.ajax({
+	                url: "updateMember.jsp", // 서버의 수정 URL
+	                type: "POST",
+	                data: {
+	                    memberId: $("#memberId").val(),  // 예시로 회원 ID를 전송
+	                    memberName: $("#memberName").val(),  // 예시로 수정할 회원 이름 전송
+	                    // 필요한 다른 데이터 추가
+	                },
+	                success: function(response) {
+	                    if (response === "success") {
+	                        alert("정상적으로 수정되었습니다.");
+	                        window.location.href = "memberList.jsp";
+	                    } else {
+	                        alert("수정에 실패했습니다. 다시 시도해 주세요.");
+	                    }
+	                },
+	                error: function() {
+	                    alert("서버 오류가 발생했습니다. 다시 시도해 주세요.");
+	                }
+	            });
+	        }
+	    });
 
-		})
+	    $("#delete").click(function() {
+	        if (confirm("삭제하시겠습니까?")) {
+	            // 삭제 Ajax 요청
+	            $.ajax({
+	                url: "deleteMember.jsp", // 서버의 삭제 URL
+	                type: "POST",
+	                data: {
+	                    memberId: $("#memberId").val()  // 예시로 회원 ID를 전송
+	                },
+	                success: function(response) {
+	                    if (response === "success") {
+	                        alert("회원번호: " + $("#memberId").val() + "번이 삭제되었습니다.");
+	                        window.location.href = "memberList.jsp";
+	                    } else {
+	                        alert("삭제에 실패했습니다. 다시 시도해 주세요.");
+	                    }
+	                },
+	                error: function() {
+	                    alert("서버 오류가 발생했습니다. 다시 시도해 주세요.");
+	                }
+	            });
+	        }
+	    });
 
-		$("#delete").click(function() {
-			if (confirm("삭제하시겠습니까?")) {
-				alert("회원번호: xxx번이 삭제되었습니다.");
-				window.location.href = "memberList.jsp";
-			}
+	    $("#list").click(function() {
+	        window.location.href = "memberList.jsp";
+	    });
 
-		})
-
-		$("#list").click(function() {
-			window.location.href = "memberList.jsp";
-
-		})
 
 	});// ready
 </script>

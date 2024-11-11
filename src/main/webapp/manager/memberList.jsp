@@ -1,10 +1,11 @@
-<%@page import="AdminMember.UserVO"%>
+<%@page import="kr.co.sist.user.UserVO"%>
 <%@page import="java.util.List"%>
-<%@page import="AdminMember.AdminMemberVO"%>
-<%@page import="AdminMember.AdminMemberManageDAO"%>
+<%@page import="kr.co.sist.user.AdminMemberVO"%>
+<%@page import="kr.co.sist.user.AdminMemberManageDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" info=""%>
-	<%
+	pageEncoding="UTF-8"%>
+
+<%
     AdminMemberManageDAO dao = AdminMemberManageDAO.getInstance();
     AdminMemberVO amVO = new AdminMemberVO();
     List<UserVO> userList = dao.selectAllMember(amVO);
@@ -18,40 +19,23 @@
 <title>관리 페이지</title>
 
 <!-- 부트스트랩 CDN -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-	crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-<!-- 내가 쓴거 -->
-<link rel="shortcut icon"
-	href="http://192.168.10.219/project1/common/images/favicon.ico" />
-<link rel="stylesheet" type="text/css"
-	href="http://192.168.10.219/project1/common/css/main_20240911.css">
-<link rel="stylesheet" type="text/css"
-	href="http://192.168.10.219/project1/common/css/main_Sidbar.css">
+<!-- Custom Styles -->
+<link rel="shortcut icon" href="http://192.168.10.219/project1/common/images/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="http://192.168.10.219/project1/common/css/main_20240911.css">
+<link rel="stylesheet" type="text/css" href="http://192.168.10.219/project1/common/css/main_Sidbar.css">
 
 <!-- jQuery CDN -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
 <style type="text/css">
 #member-table {
 	min-height: 500px;
 }
 </style>
-
-<script type="text/javascript">
-	
-</script>
-
-
 </head>
-
 
 <body>
 	<jsp:include page="sidebar.jsp"></jsp:include>
@@ -65,7 +49,7 @@
 
 			<div class="content-box" id="member-table">
 				<h2>회원목록</h2>
-				<table class="table">
+				<table class="table table-striped">
 					<colgroup>
 						<col width="11%">
 						<col width="11%">
@@ -88,21 +72,20 @@
 					</thead>
 
 					<tbody align="center">
+						<% for(UserVO user : userList) { %>
 						<tr>
-
-							<td><a href="editMember.jsp?memberID=admin">admin</a></td>
-							<td>회원성명</td>
-							<td>전화번호</td>
-							<td>주소</td>
-							<td>가입일자</td>
-							<td colspan="2">이메일</td>
+							<td><a href="editMember.jsp?memberID=<%= user.getUserId() %>"><%= user.getUserId() %></a></td>
+							<td><%= user.getName() %></td>
+							<td><%= user.getPhone() %></td>
+							<td><%= user.getAddress1() %></td>
+							<td><%= user.getJoinDate() %></td>
+							<td colspan="2"><%= user.getEmail() %></td>
 						</tr>
+						<% } %>
 					</tbody>
 				</table>
-				
 			</div>
 		</form>
 	</div>
-
 </body>
 </html>

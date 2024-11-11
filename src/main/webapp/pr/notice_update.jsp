@@ -7,11 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>관리 페이지</title>
   <link rel="stylesheet" href="admin.css">
-  <jsp:useBean id="nVO" class="kr.co.sist.notice.NoticeVO"/>
-  <jsp:useBean id="ncVO" class="kr.co.sist.notice.NoticeCategoryVO"/>
-  <jsp:setProperty property="*" name="nVO"/>
-  <jsp:setProperty property="*" name="ncVO"/>
-  
 
   <!-- Bootstrap CDN -->
   <link
@@ -186,7 +181,7 @@
 <!-- 메인 콘텐츠 영역 -->
 <div class="main-content">
   <div class="content-box">
-    <div class="notice_title">공지사항 등록</div>
+    <div class="notice_title">공지사항 수정</div>
     <div class="notice_list">
       <table class="table notice-form">
         <tr>
@@ -203,54 +198,26 @@
         </tr>
         <tr>
           <td class="label"><span class="required">*</span>공지사항 상세</td>
-          <td><textarea id="content" rows="10" placeholder="공지사항 내용을 작성해주세요"; style="resize:none;"></textarea></td>
+          <td><textarea id="content" rows="10" placeholder="선택한 공지사항의 내용 출력" style="resize:none;"></textarea></td>
         </tr>
       </table>
       <div class="button-group">
-        <button class="btn btn-success" id="addBtn">등록</button>
+        <button class="btn btn-success" id="updateBtn">수정</button>
         <button class="btn btn-warning" id="cancelBtn">취소</button>
       </div>
     </div>
   </div>
   <script>
       $(function () {
-          $('#addBtn').click(() => {
-        	  
-        	  var param={ title: $('#title').val(),
-        	            content: $('#content').val(),
-        	            categolyId: $('#categolyId').val()};
-        	  
-             $.ajax({
-            	url:"notice_create.jsp",
-            	type:"post",
-            	data: param,
-            	dataType:"json",
-            	error:function( xhr ){
-            		console.log( xhr.status );
-            		alert("공지사항이 정상적으로 등록되지 못하였습니다")
-            	},
-            	success: function( jsonObj ){
-    		 		if( jsonObj.result ){
-    		 			if(!jsonObj.loginStatus){
-    		 				alert("로그인 정보가 존재하지 않습니다");
-    		 				return;
-    		 			}//end if
-    		 			
-    		 		var msg="공지사항등록에 실패하였습니다";
-    		 		if(jsonObj.insertStatus){
-    		 				msg="공지사항등록에 성공하였습니다";
-    		 			}
-            		
-            	}
-             }
+          $('#updateBtn').click(() => {
+
           })
-          $('#cancelBtn').click(()=>{
-              location.href='notice_list.jsp'
+          $('#cancelBtn').click(() => {
+              location.href = 'notice_list.jsp'
           })
+
       });
-      })
   </script>
 </div>
-
 </body>
 </html>

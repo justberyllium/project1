@@ -1,9 +1,9 @@
-package AdminMember;
+package kr.co.sist.user;
 
 public class UserVO {
 private int zipcode;
 private String userId,password,name,email,phone,gender,address1,address2,birth,
-securityQuestion_id,securityAnswer,joinDate;
+securityQuestion_id,securityAnswer,joinDate,user_status_flag,question_id;
 public int getZipcode() {
 	return zipcode;
 }
@@ -82,12 +82,26 @@ public String getJoinDate() {
 public void setJoinDate(String joinDate) {
 	this.joinDate = joinDate;
 }
+public String getUser_status_flag() {
+	return user_status_flag;
+}
+public void setUser_status_flag(String user_status_flag) {
+	this.user_status_flag = user_status_flag;
+}
+public String getQuestion_id() {
+	return question_id;
+}
+public void setQuestion_id(String question_id) {
+	this.question_id = question_id;
+}
 @Override
 public String toString() {
 	return "UserVO [zipcode=" + zipcode + ", userId=" + userId + ", password=" + password + ", name=" + name
 			+ ", email=" + email + ", phone=" + phone + ", gender=" + gender + ", address1=" + address1 + ", address2="
 			+ address2 + ", birth=" + birth + ", securityQuestion_id=" + securityQuestion_id + ", securityAnswer="
-			+ securityAnswer + ", joinDate=" + joinDate + "]";
+			+ securityAnswer + ", joinDate=" + joinDate + ", user_status_flag=" + user_status_flag + ", question_id="
+			+ question_id + "]";
 }
+
 
 }

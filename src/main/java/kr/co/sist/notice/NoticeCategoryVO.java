@@ -1,4 +1,4 @@
-package notice;
+package kr.co.sist.notice;
 
 public class NoticeCategoryVO {
 private int category_id;
